@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Menu UI</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: white;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 20px;
+        background: #111827;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .navbar h1 {
+        font-size: 18px;
+        color: #38bdf8;
+    }
+
+    .menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .menu a {
+        color: white;
+        margin-left: 10px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .menu a:hover {
+        color: #38bdf8;
+    }
+
+    .container {
+        padding: 25px 15px;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: #94a3b8;
+        margin-bottom: 25px;
+        font-size: 14px;
+    }
+
+    .pricing {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+    .card {
+      box-shadow: 0 0 25px rgba(255, 0, 204, 0.25);
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    padding: 18px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow:
+        0 0 15px rgba(255, 0, 204, 0.15),
+        0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* 💖 LED hồng chạy */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(
+        90deg,
+        #ff00cc,
+        #ff66cc,
+        #ff00cc,
+        #ff66cc
+    );
+    background-size: 300% 300%;
+    animation: ledMove 3s linear infinite;
+    -webkit-mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* glow trong card */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at top,
+        rgba(255, 0, 204, 0.12),
+        transparent 60%
+    );
+    pointer-events: none;
+}
+
+/* hover */
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+        0 0 20px #ff4dd2,
+        0 0 60px rgba(255, 0, 204, 0.2);
+}
+
+/* title đẹp hơn */
+.card h2 {
+    color: #ff66cc;
+    font-size: 18px;
+    text-shadow: 0 0 10px rgba(255, 0, 204, 0.5);
+}
+
+/* price nổi bật */
+.price {
+    font-size: 24px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 10px #ff4dd2;
+}
+
+/* button cyber */
+.btn {
+    margin-top: 12px;
+    padding: 10px;
+    background: linear-gradient(90deg, #ff00cc, #ff66cc);
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.4);
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #ff4dd2;
+}
+/* 💖 tất cả chữ trong web */
+body {
+    color: #ff66cc;
+}
+
+/* navbar */
+.navbar h1 {
+    color: #ff66cc;
+}
+
+.menu a {
+    color: #ff66cc;
+}
+
+/* tiêu đề */
+.title {
+    color: #ff66cc;
+}
+
+.subtitle {
+    color: #ff99dd;
+}
+
+/* card text */
+.card h2 {
+    color: #ff66cc;
+}
+
+.card ul {
+    color: #ff99dd;
+}
+
+/* giá */
+.price {
+    color: #ff66cc;
+    text-shadow: 0 0 10px #ff4dd2;
+}
+
+/* button chữ */
+.btn {
+    color: #fff;
+}
+.title-box {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 25px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 0, 204, 0.08);
+    border: 1px solid #ff4dd2;
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.4);
+    overflow: hidden;
+    position: relative;
+}
+
+/* chữ chạy */
+.marquee {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff66cc;
+    text-shadow: 0 0 10px #ff4dd2;
+
+    animation: runText 8s linear infinite;
+}
+
+/* animation chạy ngang */
+@keyframes runText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+ @keyframes ledMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 300% 50%;
+    }
+}
+.btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+.note-box {
+    max-width: 600px;
+    margin: 20px auto 35px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    
+    background: linear-gradient(145deg, rgba(255,0,204,0.15), rgba(15,23,42,0.8));
+    border: 2px solid #ff4dd2;
+
+    color: #ff66cc;
+    font-weight: bold;
+    text-align: center;
+
+    text-shadow: 0 0 10px #ff4dd2;
+    
+    box-shadow:
+        0 0 15px rgba(255, 0, 204, 0.4),
+        inset 0 0 10px rgba(255, 0, 204, 0.2);
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* viền chạy nhẹ cho ngầu */
+.note-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    padding: 2px;
+    background: linear-gradient(90deg, #ff00cc, #ff66cc, #ff00cc);
+    background-size: 300% 300%;
+    animation: borderRun 3s linear infinite;
+    z-index: 0;
+
+    -webkit-mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.note-box {
+    z-index: 1;
+}
+
+@keyframes borderRun {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+@media (max-width: 768px) {
+
+    .container {
+        padding: 15px 10px;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .title-box {
+        padding: 10px;
+    }
+
+    .marquee {
+        font-size: 14px;
+    }
+
+    .note-box {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .pricing {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .card {
+        width: 100%;
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .card h2 {
+        font-size: 16px;
+    }
+
+    .price {
+        font-size: 20px;
+    }
+
+    .card ul li {
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+<body>
+<audio id="bgMusic" loop>
+    <source src="https://files.catbox.moe/qv3jrx.mp3" type="audio/mpeg">
+</audio>
+<div class="navbar">
+    <h1>TungDuong</h1>
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Support</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="title-box">
+    <div class="marquee">
+        💖 Bảng Gía File OB53 TungDuong 💖 An Toàn - Chất Lượng - Uy Tín 💖
+    </div>
+    <div class="note-box">
+    ⚠️ LƯU Ý: Zalo Liên Hệ 035.2035713
+</div>
+</div>
+
+    <div class="pricing">
+
+    <div class="card">
+        <h2>Nhẹ TÂM</h2>
+        <div class="price">100k</div>
+        <ul>
+            <li>ios + adr</li>
+            <li>nhẹ tâm</li>
+            <li>bám đầu</li>
+            <li>tối ưu thiết bị</li>
+            <li>fix rung</li>
+            <li>Antiband</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank">
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>AIM CỔ</h2>
+        <div class="price">200K</div>
+        <ul>
+            <li>Nhẹ TÂM</li>
+            <li>HỖ TRỢ KÉO 60%-70%</li>
+            <li>Kéo Tâm Mọi Khoảng Cách</li>
+            <li>Kéo Nhẹ Là Đỏ</li>
+            <li>Antiband</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>AimLock</h2>
+        <div class="price">300k</div>
+        <ul>
+            <li>Nhẹ Tâm</li>
+            <li>Fix Rung Tâm</li>
+            <li>Hỗ Trợ Kéo 70%-85%</li>
+            <li>Không Lố Đầu Lạc Đạn</li>
+            <li>Nhích Nhẹ Là Đỏ</li>
+            <li>Antiband</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>Aim Đầu</h2>
+        <div class="price">350k</div>
+        <ul>
+            <li>Nhẹ Tâm</li>
+            <li>Fix Rung Tâm</li>
+            <li>Cứ Bắn Là Đỏ</li>
+            <li>Không Lố Đầu Lạc Đạn</li>
+            <li>Auto Ghim Đầu 100%</li>
+            <li>Antiband</li>
+            <li>Ghim Đầu Mọi Khoảng Cách</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>Aim Body</h2>
+        <div class="price">400k</div>
+        <ul>
+            <li>Bắn Vào Bụng Là Đỏ</li>
+            <li>Auto Headshot 100%</li>
+            <li>Antiband</li>
+            <li>Không Lố Đầu Lạc Đạn</li>
+            <li>Ghim Đầu Mọi Khoảng Cách</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>AimLock Max</h2>
+        <div class="price">500k</div>
+        <ul>
+            <li>Bắn Nút Bắn Là Di Theo Địch</li>
+            <li>Auto Headshot 100%</li>
+            <li>Antiband</li>
+            <li>Báo Bá Khỏi Phải Bàn</li>
+            <li>Ghim Đầu Mọi Khoảng Cách</li>
+            <li>Đi Kèo Cầm Bản Này Ngon Luôn</li>
+        </ul>
+       <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>AimLock Super</h2>
+        <div class="price">700k</div>
+        <ul>
+            <li>Auto Headshot 100%</li>
+            <li>Antiband</li>
+            <li>Bá Mọi Chế Độ</li>
+            <li>Ra Đạn Địch Chỉ Biết Khóc</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+    <div class="card">
+        <h2>AimLock Độc Quyền</h2>
+        <div class="price">1000k</div>
+        <ul>
+            <li>Độc Quyền Không Thể So Sánh</li>
+            <li>Auto Headshot 100%</li>
+            <li>Antiband</li>
+        </ul>
+        <a class="btn" href="https://zalo.me/0352035713" target="_blank"> 
+    Mua ngay
+</a>
+    </div>
+
+</div>
+     
+</div>
+<script>
+document.addEventListener("click", function () {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) {
+        music.play();
+    }
+}, { once: true });
+</script>
+</body>
+</html>
